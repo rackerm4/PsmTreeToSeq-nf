@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -y \
 		python-dev \
 		python-pip \
 RUN pip install --no-cache-dir -r requirements.txt
-RUN sudo chmod 666 /var/run/docker.sock
 
 # Copy sources
 COPY . .
