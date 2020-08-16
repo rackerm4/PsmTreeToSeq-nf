@@ -17,6 +17,7 @@ $ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default
 
 * DendroPy==4.4.0
 * future==0.18.2
+* numpy==1.19.1
 * PyYAML==5.3.1
 * Seq-Gen
 

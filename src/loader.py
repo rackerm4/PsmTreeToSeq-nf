@@ -3,6 +3,7 @@
 
 import random
 import yaml
+import numpy as np
 
 
 class Loader:
@@ -17,6 +18,14 @@ class Loader:
         with open(path) as f:
             config = yaml.safe_load(f)
         return config
+
+    # def value_check(self, tell):
+    #     config = self.cfg_load()
+    #     vals = {k: v for k, v in tell.items() if v}
+    #     empty = {k: v for k, v in tell.items() if not v}
+    #
+    #     for arg in config[str(tell)]:
+    #
 
     def get_specific_config_values(self, getting):
         return self.cfg_load()[str(getting)]
@@ -54,14 +63,34 @@ class Loader:
     def get_generate_sample_values(self):
         return self.get_specific_config_values('generate_sample')
 
+    def gen_seq_gen_state_freqs(self):
+        sum = 0
+        vals = []
+        while True:
+            for i in np.random.dirichlet(np.ones(4)) * 1:
+                rounded = np.round(i, 1)
+                if rounded == 0:
+                    sum = 0
+                    vals = []
+                    break
+                vals.append(rounded)
+                sum = np.sum(vals)
+            if sum == 1:
+                return vals
+            else:
+                sum = 0
+                vals = []
+
     def get_seq_gen_values(self):
-        # todo:
-        # state-freqs: if no values given, they're all equal 0.25
-        # generate 4 random numbers with sum of 1 for state_freqs
-        # possible solution:
-        # import numpy as np
-        # np.random.dirichlet(np.ones(4))*1
-        return self.get_specific_config_values('seq-gen')
+        config = self.get_specific_config_values('seq-gen')
+        empty_args = {k: v for k, v in config.items() if not v}
+        for k in empty_args.keys():
+            if k == 'state_freqs':
+                config['state_freqs'] = self.gen_seq_gen_state_freqs()
+            else:
+                empty_args[k] = round(random.uniform(0, 1), 2)
+        return {**config, **empty_args}
+        #return self.get_specific_config_values('seq-gen')
 
     def load_headers(self):
         return list(self.cfg_load()['ProtractedSpeciationProcess']) + list(self.cfg_load()['generate_sample']) + list(self.cfg_load()['seq-gen'])

@@ -39,7 +39,6 @@ def main():
             # instruct Seq-Gen to scale branch lengths by factor of 0.1
             # note that this does not modify the input trees
             s.scale_branch_lens = 0.1
-
             # more complex model
             s.char_model = seqgen.SeqGen.GTR
             s.state_freqs = [0.4, 0.4, 0.1, 0.1]
