@@ -33,7 +33,6 @@ Arg | Notes
 --output/-o | specify output directory
 
 ## Work to be done
-- Seq-Gen installation via Dockerfile
 - Passing Seq-Gen parameter from default config
 - randomized Seq-Gen parameters
 - several testing:
@@ -46,7 +45,6 @@ If you find yourself with an error like that:
     try
     $ sudo chmod 666 /var/run/docker.sock
 
-Try:
 ## Open questions
 - Big data runtime?
 - Works better with implementing with nextflow.io ?
