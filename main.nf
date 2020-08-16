@@ -8,21 +8,11 @@ params.output_dir = "$baseDir/"
 TREE_SIM_DIR = params.output_dir + "/generated_trees"
 SEQGEN_DIR = params.output_dir + "/generated_seqs"
 output_dir = file(params.output_dir)
-/*
-// Sanity checks
-// If output_dir exists, check for "--force" parameter otherwise error with Exitcode 1
-if (output_dir != null && output_dir.list().size() != 0) {
-    println "Warning: Directory $output_dir is not empty."
-    if (params.force == false){
-         return 1
-        }
-}
-*/
+
 /*
     First Process: tree_sim.py generates n trees and stores them.container 'src'
 */
 process tree_sim {
-//    container 'stanni/prokka'
     publishDir TREE_SIM_DIR, mode: 'copy'
     output:
         file '*' into ch_tree_sim_output

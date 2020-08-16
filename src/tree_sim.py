@@ -20,7 +20,7 @@ def main():
     parser.add_argument('--output', '-o', required=False, help='Output dir')
     parser.add_argument('--schema', '-s', choices=['newick', 'nexus'], required=True,
                         help='Tree schema: Newick, Nexus')
-    parser.add_argument('--config', '-p', default="default", required=True, help='')
+    parser.add_argument('--config', '-c', default="default", required=True, help='')
     parser.add_argument('--num_runs', '-n', default=1, type=int, required=False, help='')
 
     args = parser.parse_args()

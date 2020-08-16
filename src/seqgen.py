@@ -15,8 +15,6 @@ from dendropy.interop import seqgen
 
 def main():
     parser = argparse.ArgumentParser(description='Generate sample tree data under the protracted speciation model')
-    # parser.add_argument('--dir', '-d', required=True, help='Input dir')
-    # parser.add_argument('--profile', '-p', default="default", required=True, help='')
     parser.add_argument('trees', metavar='N', nargs='+', help='Incoming trees')
     parser.add_argument('--output_dir')
     args = parser.parse_args()

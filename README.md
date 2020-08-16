@@ -1,5 +1,5 @@
-# pspTSGen
-Pipeline using DendroPy & Seq-Gen.
+# PsmTreeToSeq-nf
+Pipeline using Nextflow, DendroPy & Seq-Gen.
 
 Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to simulate the evolution of nucleotide or amino acid sequences along those phylogenies.
 
@@ -20,7 +20,7 @@ $ docker run pspTSGen --profile default --num_runs <N> --schema newick --output 
 * DendroPy==4.4.0
 * future==0.18.2
 * PyYAML==5.3.1
-* Seq-Gen==xxxx
+* Seq-Gen
 
 (Will be installed by pip in Docker)
 
@@ -28,7 +28,7 @@ $ docker run pspTSGen --profile default --num_runs <N> --schema newick --output 
 [`main.py`]
 Arg | Notes
 ------- | --------
---profile/-p    | Choosing parameters file (config): no specification of parameters will result in randomized values
+--config/-c    | Choosing parameters file (config): no specification of parameters will result in randomized values
 --num_runs/-n   | Enter number of trees you want simulate
 --schema/-s | tree schema (newick, nexus..)
 --output/-o | specify output directory
