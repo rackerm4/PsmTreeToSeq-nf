@@ -21,7 +21,7 @@ def main():
     parser.add_argument('--schema', '-s', choices=['newick', 'nexus'], required=True,
                         help='Tree schema: Newick, Nexus')
     parser.add_argument('--config', '-c', default="default", required=True, help='')
-    parser.add_argument('--num_runs', '-n', default=1, type=int, required=False, help='')
+    parser.add_argument('--nums', '-n', default=1, type=int, required=False, help='')
 
     args = parser.parse_args()
     args.parser = parser
@@ -33,7 +33,7 @@ def main():
     # start
     start = time.perf_counter()
     c = 0
-    for _ in range(args.num_runs):
+    for _ in range(args.nums):
         # getting trees
         get_trees = call_sample_tree(args, config)
         # generating Sequences & saving trees
