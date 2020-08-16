@@ -11,9 +11,7 @@ Status: Currently not working.
 ### Installation & Docker
 
 ```sh
-$ git clone https://github.com/rackerm4/pspTSGen
-$ docker build -t pspTSGen .
-$ docker run pspTSGen --profile default --num_runs <N> --schema newick --output data
+$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default -with-docker docker
 ```
 ## Requirements
 
@@ -26,6 +24,7 @@ $ docker run pspTSGen --profile default --num_runs <N> --schema newick --output 
 
 ### Arguments
 [`main.py`]
+
 Arg | Notes
 ------- | --------
 --config/-c    | Choosing parameters file (config): no specification of parameters will result in randomized values
@@ -39,7 +38,15 @@ Arg | Notes
 - randomized Seq-Gen parameters
 - several testing:
     - behavior with high tree counts & full size
+    
+## Known issues
+If you find yourself with an error like that: 
+    
+    $ docker: Got permission denied while trying to connect to the Docker daemon socket 
+    try
+    $ sudo chmod 666 /var/run/docker.sock
 
+Try:
 ## Open questions
 - Big data runtime?
 - Works better with implementing with nextflow.io ?
