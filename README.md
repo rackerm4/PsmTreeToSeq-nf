@@ -11,7 +11,7 @@ Status: Currently not working.
 ### Installation & Docker
 
 ```sh
-$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default -with-docker docker
+$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
 ```
 ## Requirements
 
