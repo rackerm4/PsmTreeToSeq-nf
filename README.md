@@ -1,7 +1,7 @@
 # PsmTreeToSeq-nf
 Pipeline using Nextflow, DendroPy & Seq-Gen.
 
-Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to simulate the evolution of nucleotide or amino acid sequences along those phylogenies.
+Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to simulate the evolution of nucleotide sequences along those phylogenies.
 
 Status: Currently not working.
 
