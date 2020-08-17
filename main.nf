@@ -26,7 +26,7 @@ process tree_sim {
         file '*' into ch_tree_sim_output
     script:
     """
-    python3 /home/student/PsmTreeToSeq-nf/src/tree_sim.py --schema ${params.schema} --config ${params.config}
+    python3 /src/tree_sim.py --schema ${params.schema} --config ${params.config}
     """
 }
 /*
@@ -40,6 +40,6 @@ process seq_gen {
         file '*' into ch_seqgen_output
     script:
         """
-        python3 /home/student/PsmTreeToSeq-nf/src/seqgen.py ${tree} --output_dir ${params.output_dir}
+        python3 /src/seqgen.py ${tree} --output_dir ${params.output_dir}
         """
 }

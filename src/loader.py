@@ -8,10 +8,10 @@ import numpy as np
 
 class Loader:
     def get_path(self):
-        return '/home/student/PsmTreeToSeq-nf/src/default.yaml'
+        return '/src/default.yaml'
 
     def cfg_load(self):
-        path = '/home/student/PsmTreeToSeq-nf/src/default.yaml'
+        path = '/src/default.yaml'
         with open(path) as f:
             config = yaml.safe_load(f)
         return config
@@ -34,8 +34,10 @@ class Loader:
                  'orthospecies_extinction_rate', 'aincipient_species_extinction_rate']
         rng_values = []
         n = 2  # number of digits after the decimal point
+        # todo
+        # filter values = 0 of rng_values
         for i in range(len(vital)):
-            rng_values.append(round(random.uniform(0, 0.25), n))
+            rng_values.append(round(random.uniform(0, 0.5), n))
         # test values below
         #return {'incipient_species_extinction_rate': 0.2, 'speciation_initiation_from_orthospecies_rate': 0.2, 'speciation_initiation_from_incipient_species_rate': 0.2, 'speciation_completion_rate': 0.2, 'orthospecies_extinction_rate': 0.2, 'aincipient_species_extinction_rate': 0.2}
         return dict(zip(vital, rng_values))
