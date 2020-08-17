@@ -34,7 +34,7 @@ Arg | Notes
 --output/-o | specify output directory
 
 ## Work to be done
-- only save parameters of generated tree -> see Knows issues
+- save parameters of generated tree and ignore failed runs -> see Knows issues
 - Passing Seq-Gen parameter from default config 
 - randomized Seq-Gen parameters
 - several testing:
@@ -56,14 +56,19 @@ is raised. Defaults to 1000. Set to None to never quit trying._"
     $ sudo chmod 666 /var/run/docker.sock
 ```
 ## Open questions
-- Big data runtime?
-- Works better with implementing with nextflow.io ?
-    - parallelization of runs
-- number of digits after the decimal point for random values
+- Big data runtime
+- Number of digits after the decimal point for random values
 
 ### How does it work
 
 ## Resources
+- DendroPy - Phylogenetic Computing Library:
+    - https://dendropy.org/
+- Seq-Gen - Program simulating the evolution of nucleotide or amino acid sequences along a phylogeny
+    - http://tree.bio.ed.ac.uk/software/seqgen/
+- Nextflow - Data-driven computational pipelines 
+    - https://www.nextflow.io/
+
 ### Protracted speciation model-related publications
 Estimating the duration of speciation from phylogenies  
 - https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4262007/
