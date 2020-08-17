@@ -34,14 +34,24 @@ Arg | Notes
 --output/-o | specify output directory
 
 ## Work to be done
-- Passing Seq-Gen parameter from default config
+- only save parameters of generated tree -> see Knows issues
+- Passing Seq-Gen parameter from default config 
 - randomized Seq-Gen parameters
 - several testing:
     - behavior with high tree counts & full size
     
 ## Known issues
-If you find yourself with an error like that: 
+- When ProtractedSpeciationProcess class raises an error, most of the time it's that error below. 
+It will be ignored and the next run will start, **but the parameters still get saved**.
+```
+"_Maximum number of runs to execute in the event of prematurely-terminated simulations due to all 
+lineages going extinct. Once this number or re-runs is exceed, then TreeSimTotalExtinctionException 
+is raised. Defaults to 1000. Set to None to never quit trying._"
+```
+
+- If you find yourself with an error like that: 
     
+   
     $ docker: Got permission denied while trying to connect to the Docker daemon socket 
     try
     $ sudo chmod 666 /var/run/docker.sock
