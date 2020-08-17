@@ -39,7 +39,7 @@ seq-gen:
 
   # todo:
   # check if all arguments are correct with source of dendropy seqgen at
-  # https://github:com/jeetsukumaran/DendroPy/blob/main/src/dendropy/interop/seqgen.py
+  # https://github.com/jeetsukumaran/DendroPy/blob/main/src/dendropy/interop/seqgen.py
 
   # All values below are not supported by Dendropys interop Seq-Gen
   # op: # This option selects the format of the output file. The default is PHYLIP format.
