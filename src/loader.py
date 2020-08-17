@@ -7,14 +7,11 @@ import numpy as np
 
 
 class Loader:
-    def __init__(self, load):
-        self.load = load
-
     def get_path(self):
-        return '/src/default.yaml'
+        return '/home/student/PsmTreeToSeq-nf/src/default.yaml'
 
     def cfg_load(self):
-        path = '/src/default.yaml'
+        path = '/home/student/PsmTreeToSeq-nf/src/default.yaml'
         with open(path) as f:
             config = yaml.safe_load(f)
         return config
@@ -36,12 +33,12 @@ class Loader:
                  'speciation_initiation_from_incipient_species_rate', 'speciation_completion_rate',
                  'orthospecies_extinction_rate', 'aincipient_species_extinction_rate']
         rng_values = []
-        n = 1  # number of digits after the decimal point
+        n = 2  # number of digits after the decimal point
         for i in range(len(vital)):
-            rng_values.append(round(random.uniform(0, 1), n))
+            rng_values.append(round(random.uniform(0, 0.25), n))
         # test values below
-        return {'incipient_species_extinction_rate': 0.2, 'speciation_initiation_from_orthospecies_rate': 0.2, 'speciation_initiation_from_incipient_species_rate': 0.2, 'speciation_completion_rate': 0.2, 'orthospecies_extinction_rate': 0.2, 'aincipient_species_extinction_rate': 0.2}
-        #return dict(zip(vital, rng_values))
+        #return {'incipient_species_extinction_rate': 0.2, 'speciation_initiation_from_orthospecies_rate': 0.2, 'speciation_initiation_from_incipient_species_rate': 0.2, 'speciation_completion_rate': 0.2, 'orthospecies_extinction_rate': 0.2, 'aincipient_species_extinction_rate': 0.2}
+        return dict(zip(vital, rng_values))
 
     # old function, reads in parameters from config file 'default.yaml'
     # def generate_protracted_speciation_process_values(self):
@@ -63,7 +60,7 @@ class Loader:
     def get_generate_sample_values(self):
         return self.get_specific_config_values('generate_sample')
 
-    def gen_seq_gen_state_freqs(self):
+    def generate_seq_gen_state_freqs(self):
         sum = 0
         vals = []
         while True:
@@ -76,21 +73,23 @@ class Loader:
                 vals.append(rounded)
                 sum = np.sum(vals)
             if sum == 1:
-                return vals
+                break
             else:
                 sum = 0
                 vals = []
+        #vals = [int(i) for i in vals] # from str list to an int list
+        return vals
 
     def get_seq_gen_values(self):
-        config = self.get_specific_config_values('seq-gen')
-        empty_args = {k: v for k, v in config.items() if not v}
-        for k in empty_args.keys():
-            if k == 'state_freqs':
-                config['state_freqs'] = self.gen_seq_gen_state_freqs()
-            else:
-                empty_args[k] = round(random.uniform(0, 1), 2)
-        return {**config, **empty_args}
-        #return self.get_specific_config_values('seq-gen')
+            config = self.get_specific_config_values('seq-gen')
+            empty_args = {k: v for k, v in config.items() if not v}
+            for k in empty_args.keys():
+                if k == 'state_freqs':
+                    empty_args['state_freqs'] = self.generate_seq_gen_state_freqs()
+                # else:
+                #     empty_args[k] = round(random.uniform(0, 1), 2)
+            return {**config, **empty_args}
+            #return self.get_specific_config_values('seq-gen')
 
     def load_headers(self):
         return list(self.cfg_load()['ProtractedSpeciationProcess']) + list(self.cfg_load()['generate_sample']) + list(self.cfg_load()['seq-gen'])

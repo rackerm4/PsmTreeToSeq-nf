@@ -17,29 +17,27 @@ from dendropy.model import protractedspeciation
 
 def main():
     parser = argparse.ArgumentParser(description='Generate sample tree data under the protracted speciation model')
-    parser.add_argument('--output', '-o', required=False, help='Output dir')
+    # parser.add_argument('--output', '-o', required=False, help='Output dir')
     parser.add_argument('--schema', '-s', choices=['newick', 'nexus'], required=True,
                         help='Tree schema: Newick, Nexus')
     parser.add_argument('--config', '-c', default="default", required=True, help='')
-    parser.add_argument('--nums', '-n', default=1, type=int, required=False, help='')
-
+    # parser.add_argument('--nums', '-n', default=1, type=int, required=False, help='')
     args = parser.parse_args()
     args.parser = parser
 
-    config = cl.Loader(args.config)
-    #db = data.DB(args.output)
+    config = cl.Loader()
     headers = config.load_headers()
 
-    # start
-    start = time.perf_counter()
-    c = 0
-    for _ in range(args.nums):
-        # getting trees
-        get_trees = call_sample_tree(args, config)
-        # generating Sequences & saving trees
+    # for _ in range(args.nums):
+    # getting trees
+    get_trees = call_sample_tree(config)
+    # generating Sequences & saving trees
+    try:
         file_output(get_trees, args, ["lineage", "orthospecies"])
-        # saving parameters
-        parameters_to_txt(config, args, headers)
+    except:
+        pass
+    # saving parameters
+    parameters_to_txt(config, headers)
 
 
 def temp_file_name():
@@ -60,7 +58,7 @@ def gen_sample_values(values):
     return {k: v for k, v in values.items() if v}
 
 
-def call_sample_tree(args, config):
+def call_sample_tree(config):
     """
     Calls ProtractedSpeciationProcess and generates sample trees.
     :param args, config:
@@ -70,17 +68,20 @@ def call_sample_tree(args, config):
     generate_tree[1] orthospecies_tree (|Tree| instance) – A tree from the protracted speciation process with only
     “good” species.:
     """
-    try:
-        # calling args
-        values = gen_sample_values(config.get_generate_sample_values())
-        # generate trees
-        generated_trees = protractedspeciation.ProtractedSpeciationProcess(
-            **config.generate_protracted_speciation_process_values()).generate_sample(**values)
-        return generated_trees
-    except BaseException as e:
-        print("Maximum number of runs to execute in the event of prematurely-terminated simulations due to all "
-              "lineages going extinct. Once this number or re-runs is exceed, then TreeSimTotalExtinctionException "
-              "is raised. Defaults to 1000. Set to None to never quit trying.\n" + str(e))
+    while True:
+        try:
+            # calling args
+            values = gen_sample_values(config.get_generate_sample_values())
+            # generate trees
+            generated_trees = protractedspeciation.ProtractedSpeciationProcess(
+                **cl.Loader.generate_protracted_speciation_process_values()).generate_sample(**values)
+            return generated_trees
+        except:
+            continue
+        # except BaseException as e:
+        #     print("Maximum number of runs to execute in the event of prematurely-terminated simulations due to all "
+        #           "lineages going extinct. Once this number or re-runs is exceed, then TreeSimTotalExtinctionException "
+        #           "is raised. Defaults to 1000. Set to None to never quit trying.\n" + str(e))
 
 
 def file_output(trees, args, tree_names):
@@ -96,10 +97,10 @@ def file_output(trees, args, tree_names):
             return "Unexpected error while saving tree data:\n" + str(e)
 
 
-def parameters_to_txt(config, args, headers):
+def parameters_to_txt(config, headers):
     z = {**config.get_generate_sample_values(), **config.generate_protracted_speciation_process_values(),
          **config.get_seq_gen_values()}
-    dtc.write_data_to_txt(z, args.output, headers)
+    dtc.write_data_to_txt(z, headers)
 
 
 if __name__ == '__main__':

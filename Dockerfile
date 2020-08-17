@@ -6,7 +6,7 @@ WORKDIR /PsmTreeToSeq
 # Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN apt-get update && apt-get install -y seq-gen
+# RUN apt-get update && apt-get install -y seq-gen
 
 # Copy sources
 COPY . .
@@ -15,4 +15,4 @@ COPY . .
 
 # ENV PATH $PATH:/PsmTreeToSeq/black_crap_lab
 
-ENTRYPOINT ["python", "/PsmTreeToSeq/src/main.py"]
+ENTRYPOINT ["python", "/PsmTreeToSeq/main.nf"]

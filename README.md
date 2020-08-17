@@ -48,7 +48,7 @@ It will be ignored and the next run will start, **but the parameters still get s
 lineages going extinct. Once this number or re-runs is exceed, then TreeSimTotalExtinctionException 
 is raised. Defaults to 1000. Set to None to never quit trying._"
 ```
-
+- Permission denied error? Execute permission for the files in /src/: chmod u+rwx *.py
 - If you find yourself with an error like that: 
     
    
