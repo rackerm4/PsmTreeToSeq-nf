@@ -56,7 +56,7 @@ Arg | Notes
 
 ## :bulb: Work to be done
 - Dockerfile/image/container
-- Ignore parameters of failed runs -> see Knows issues
+- Ignore parameters of failed runs -> see Known issues
 - Passing Seq-Gen parameter from default config [Done]
 - randomized Seq-Gen parameters [Done]
 - several testing:
@@ -83,6 +83,7 @@ $ sudo chmod 666 /var/run/docker.sock
 ## :question: Open questions
 - Big data runtime
 - Number of digits after the decimal point for random values
+- typical DNA specific rates
 
 ### How does it work
 
