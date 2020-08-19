@@ -29,7 +29,7 @@ Run via Nextflow:
 $ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
 ```
 
-or clone from GitHub:
+Clone from GitHub:
 ```sh
 $ git clone https://github.com/rackerm4/PsmTreeToSeq.git
 $ cd PsmTreeToSeq
@@ -55,6 +55,7 @@ Arg | Notes
 --output/-o | Specify output directory
 
 ## :bulb: Work to be done
+- Dockerfile/image/container
 - Ignore parameters of failed runs -> see Knows issues
 - Passing Seq-Gen parameter from default config [Done]
 - randomized Seq-Gen parameters [Done]
