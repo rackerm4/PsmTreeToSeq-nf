@@ -17,6 +17,7 @@ $ python setup.py install
 Install Nextflow.io
 ```
 curl -s https://get.nextflow.io | bash
+export PATH=$PATH:/your/path/
 ```
 Install Seq-Gen
 ```
