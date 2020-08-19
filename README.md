@@ -29,7 +29,7 @@ Run via Nextflow:
 $ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
 ```
 
-Clone from GitHub:
+or clone from GitHub:
 ```sh
 $ git clone https://github.com/rackerm4/PsmTreeToSeq.git
 $ cd PsmTreeToSeq
