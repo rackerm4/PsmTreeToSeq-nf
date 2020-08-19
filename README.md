@@ -62,6 +62,7 @@ Arg | Notes
     - behavior with high tree counts & full size
     
 ## Known issues
+- Parameters not logged properly
 - Newick trees raise an error when read with Seq-Gen. Currently every newick tree is converted into a nexus tree. All newick tree will be deleted.
 
 - When ProtractedSpeciationProcess class raises an error, most of the time it's that error below. 
