@@ -15,7 +15,7 @@ def main():
     args = parser.parse_args()
     args.parser = parser
 
-    config = cl.Loader()
+    config = cl.Loader(args.output_dir)
     s = seqgen.SeqGen()
 
     s.scale_branch_lens = 0.1

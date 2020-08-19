@@ -16,13 +16,14 @@ from dendropy.model import protractedspeciation
 
 def main():
     parser = argparse.ArgumentParser(description='Generate sample tree data under the protracted speciation model')
+    parser.add_argument('--output', '-o')
     parser.add_argument('--schema', '-s', choices=['newick', 'nexus'], required=True,
                         help='Tree schema: Newick, Nexus')
     parser.add_argument('--config', '-c', default="default", required=True, help='')
     args = parser.parse_args()
     args.parser = parser
 
-    config = cl.Loader()
+    config = cl.Loader(args.output)
     headers = config.load_headers()
 
     # getting trees

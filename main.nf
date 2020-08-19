@@ -14,6 +14,7 @@ log.info "P s m  T r e e  T o  S e q - N F  ~  version 0.1"
 log.info "====================================="
 log.info "generated_trees        : ${TREE_SIM_DIR}"
 log.info "generated_seqs         : ${SEQGEN_DIR}"
+log.info "Stay hydrated          : drink water"
 
 /*
     First Process: tree_sim.py generates n trees and stores them.
@@ -26,7 +27,7 @@ process tree_sim {
         file '*' into ch_tree_sim_output
     script:
     """
-    python3 ${output_dir}/src/tree_sim.py --schema ${params.schema} --config ${params.config}
+    python3 ${output_dir}/src/tree_sim.py --schema ${params.schema} --config ${params.config} --output ${output_dir}
     """
 }
 /*
