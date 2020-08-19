@@ -2,7 +2,7 @@ import csv
 import os
 
 """
-    Stores randomized parameters into text file
+    Stores all parameters into text file
 """
 
 
