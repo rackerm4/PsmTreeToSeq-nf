@@ -63,7 +63,7 @@ Arg | Notes
     
 ## Known issues
 - Parameters not logged properly
-- Newick trees raise an error when read with Seq-Gen. Currently every newick tree is converted into a nexus tree. All newick tree will be deleted.
+- Newick trees raise an error when read in with Seq-Gen. Currently every newick tree is converted into a nexus tree. All newick tree will be deleted.
 
 - When ProtractedSpeciationProcess class raises an error, most of the time it's that error below. 
 It will be ignored and the next run will start, **but the parameters still get saved**.
