@@ -2,11 +2,15 @@
 # # -*- coding: utf-8 -*-
 #
 
+import os
+import glob
 import argparse
 import time
 import tempfile
 import data_to_csv as dtc
 import loader as cl
+
+import dendropy
 from dendropy.model import protractedspeciation
 
 """
@@ -95,6 +99,37 @@ def file_output(trees, args, tree_names):
             # yield file_name
         except BaseException as e:
             return "Unexpected error while saving tree data:\n" + str(e)
+
+def file_output(trees, args, tree_names):
+    """Stores output files."""
+    for i in range(len(trees)):
+        try:
+            if args.schema != 'nexus':
+                file_name = tree_names[i] + '_' + temp_file_name() + "." + str(args.schema)
+                # tmp_path = os.path.join(output_dir, file_name)
+                trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
+                                       schema=args.schema)
+                convert_newick_to_nexus(file_name)
+                #yield new_fname
+            else:
+                file_name = tree_names[i][:3]+ '_' + temp_file_name() + "." + str(args.schema)
+                # tmp_path = os.path.join(output_dir, file_name)
+                trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
+                                       schema=args.schema)
+                #yield file_name
+            for f in glob.glob("*.newick"):
+                os.remove(f)
+        except BaseException as e:
+            return "Unexpected error while saving tree data:\n" + str(e)
+
+
+def convert_newick_to_nexus(fname):
+    tree = dendropy.Tree.get(path=fname, schema='newick')
+    new_file_name = fname.split('.')[0] + '.nexus'
+    # path = os.path.join(args.output, new_file_name)
+    tree.write_to_path(new_file_name, suppress_rooting=True, suppress_edge_lengths=True,
+                                                 schema="nexus")
+    return new_file_name
 
 
 def parameters_to_txt(config, headers):

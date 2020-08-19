@@ -1,19 +1,35 @@
 # PsmTreeToSeq-nf
+
 Pipeline using Nextflow, DendroPy & Seq-Gen.
 
 Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to simulate the evolution of nucleotide sequences along those phylogenies.
 
-Status: Currently not working properly. Check "Work to be done"
+Status: Currently not working properly.
 
-## Background
+## :thought_balloon: Background
 
 
 ### Installation & Docker
+Install as Module:
+```
+$ python setup.py install
+```
+Install Nextflow.io
+```
+curl -s https://get.nextflow.io | bash
+```
+Install Seq-Gen
+```
+$ sudo apt-get install seq-gen
+```
 
+Clone from GitHub:
 ```sh
+$ git clone https://github.com/rackerm4/PsmTreeToSeq.git
+$ cd PsmTreeToSeq
 $ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
 ```
-## Requirements
+## :wrench: Requirements
 
 * DendroPy==4.4.0
 * future==0.18.2
@@ -21,26 +37,26 @@ $ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default
 * PyYAML==5.3.1
 * Seq-Gen
 
-(Will be installed by pip in Docker)
-
 ### Arguments
 [`main.py`]
 
 Arg | Notes
 ------- | --------
---config/-c    | Choosing parameters file (config): no specification of parameters will result in randomized values
---num_runs/-n   | Enter number of trees you want simulate
---schema/-s | tree schema (newick, nexus..)
---output/-o | specify output directory
+--config/-c | Choosing parameters file (config): 1 = random parameters, None = None, False = False, or specify your value
+--num_runs/-n   | Enter number of trees & sequence files you want simulate
+--schema/-s | Tree schema (newick, nexus..)
+--output/-o | Specify output directory
 
-## Work to be done
-- save parameters of generated tree and ignore failed runs -> see Knows issues
-- Passing Seq-Gen parameter from default config 
-- randomized Seq-Gen parameters
+## :bulb: Work to be done
+- Ignore parameters of failed runs -> see Knows issues
+- Passing Seq-Gen parameter from default config [Done]
+- randomized Seq-Gen parameters [Done]
 - several testing:
     - behavior with high tree counts & full size
     
 ## Known issues
+- Newick trees raise an error when read with Seq-Gen. Currently every newick tree is converted into a nexus tree. All newick tree will be deleted.
+
 - When ProtractedSpeciationProcess class raises an error, most of the time it's that error below. 
 It will be ignored and the next run will start, **but the parameters still get saved**.
 ```
@@ -51,17 +67,17 @@ is raised. Defaults to 1000. Set to None to never quit trying._"
 - Permission denied error? Execute permission for the files in /src/: chmod u+rwx *.py
 - If you find yourself with an error like that: 
 ```
-    $ docker: Got permission denied while trying to connect to the Docker daemon socket 
-    try
-    $ sudo chmod 666 /var/run/docker.sock
+$ docker: Got permission denied while trying to connect to the Docker daemon socket 
+try
+$ sudo chmod 666 /var/run/docker.sock
 ```
-## Open questions
+## :question: Open questions
 - Big data runtime
 - Number of digits after the decimal point for random values
 
 ### How does it work
 
-## Resources
+## :books: Resources
 - DendroPy - Phylogenetic Computing Library:
     - https://dendropy.org/
 - Seq-Gen - Program simulating the evolution of nucleotide or amino acid sequences along a phylogeny
@@ -87,9 +103,9 @@ Seq-Gen: an application for the Monte Carlo simulation of DNA sequence evolution
     
     
 
-##### Biology
+##### :microscope: Biology
 https://en.wikipedia.org/wiki/Phylogenetics
-##### Bioinformatics
+##### :computer: Bioinformatics
 https://en.wikipedia.org/wiki/Bioinformatics
 
 
