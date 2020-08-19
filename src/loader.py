@@ -30,7 +30,7 @@ class Loader:
         rng_values = []
         n = 2  # number of digits after the decimal point
         for i in range(len(vital)):
-            rng_values.append(round(np.random.uniform(0.001, 1), n))
+            rng_values.append(round(np.random.uniform(0, 0.4), n))
         # test values below
         # return {'incipient_species_extinction_rate': 0.2, 'speciation_initiation_from_orthospecies_rate': 0.2, 'speciation_initiation_from_incipient_species_rate': 0.2, 'speciation_completion_rate': 0.2, 'orthospecies_extinction_rate': 0.2, 'aincipient_species_extinction_rate': 0.2}
         return dict(zip(vital, rng_values))
@@ -40,7 +40,7 @@ class Loader:
 
     def generate_seq_gen_general_rates(self):
         n = 2  # number of digits after the decimal point
-        return [round(np.random.uniform(0.001, 0.3), n) for _ in range(6)]
+        return [round(np.random.uniform(0.1, 1), n) for _ in range(6)]
 
     def generate_seq_gen_state_freqs(self):
         """Generates 4 random numbers using dirichlet distribution. Return when sum = 1"""
@@ -72,7 +72,7 @@ class Loader:
             elif k == 'general_rates':
                 random_args['general_rates'] = self.generate_seq_gen_general_rates()
             else:
-                random_args[k] = round(np.random.uniform(0.001, 1), 2)
+                random_args[k] = round(np.random.uniform(0.1, 1), 2)
         return {**config, **random_args}
 
     def load_headers(self):
