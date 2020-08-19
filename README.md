@@ -24,11 +24,16 @@ Install Seq-Gen
 $ sudo apt-get install seq-gen
 ```
 
+Run via Nextflow:
+```sh
+$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
+```
+
 Clone from GitHub:
 ```sh
 $ git clone https://github.com/rackerm4/PsmTreeToSeq.git
 $ cd PsmTreeToSeq
-$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
+$ nextflow run main.nf --nums N --schema nexus --config default (-with-docker docker NOT WORKING RN)
 ```
 ## :wrench: Requirements
 
@@ -37,6 +42,7 @@ $ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default
 * numpy==1.19.1
 * PyYAML==5.3.1
 * Seq-Gen
+* Nextflow
 
 ### Arguments
 [`main.py`]

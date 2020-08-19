@@ -23,18 +23,6 @@ def main():
     config = cl.Loader()
     s = seqgen.SeqGen()
 
-    # generate one alignment per tree
-    # as substitution model is not specified, defaults to a JC model
-    # will result in a DataSet object with one DnaCharacterMatrix per input tree
-    # d0 = s.generate(trees)
-
-    # print(len(d0.char_matrices))
-    # print(d0.char_matrices[0].as_string("nexus"))
-    # with open("seq_align.txt", "w") as f:
-    #     f.write(d0.char_matrices[0].as_string("nexus"))
-
-    # instruct Seq-Gen to scale branch lengths by factor of 0.1
-    # note that this does not modify the input trees
     s.scale_branch_lens = 0.1
     # more complex model
 

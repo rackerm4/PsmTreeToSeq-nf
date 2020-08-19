@@ -16,7 +16,7 @@ log.info "generated_trees        : ${TREE_SIM_DIR}"
 log.info "generated_seqs         : ${SEQGEN_DIR}"
 
 /*
-    First Process: tree_sim.py generates n trees and stores them.container 'src' channel.from(1..params.nums).set( ch_number_execs )
+    First Process: tree_sim.py generates n trees and stores them.
 */
 process tree_sim {
     publishDir TREE_SIM_DIR, mode: 'copy'
