@@ -16,14 +16,6 @@ class Loader:
             config = yaml.safe_load(f)
         return config
 
-    # def value_check(self, tell):
-    #     config = self.cfg_load()
-    #     vals = {k: v for k, v in tell.items() if v}
-    #     empty = {k: v for k, v in tell.items() if not v}
-    #
-    #     for arg in config[str(tell)]:
-    #
-
     def get_specific_config_values(self, getting):
         return self.cfg_load()[str(getting)]
 
@@ -39,23 +31,6 @@ class Loader:
         # test values below
         # return {'incipient_species_extinction_rate': 0.2, 'speciation_initiation_from_orthospecies_rate': 0.2, 'speciation_initiation_from_incipient_species_rate': 0.2, 'speciation_completion_rate': 0.2, 'orthospecies_extinction_rate': 0.2, 'aincipient_species_extinction_rate': 0.2}
         return dict(zip(vital, rng_values))
-
-    # old function, reads in parameters from config file 'default.yaml'
-    # def generate_protracted_speciation_process_values(self):
-    #     psp = self.get_specific_config_values('ProtractedSpeciationProcess')
-    #     vital = ['incipient_species_extinction_rate', 'speciation_initiation_from_orthospecies_rate',
-    #              'speciation_initiation_from_incipient_species_rate', 'speciation_completion_rate',
-    #              'orthospecies_extinction_rate', 'aincipient_species_extinction_rate']
-    #     if 'ProtractedSpeciationProcess' in self.cfg_load():
-    #         for arg in vital:
-    #             if arg not in psp:
-    #                 print("Missing ProtractedSpeciationProcess argument: " + arg + " in file " + self.get_path())
-    #                 sys.exit()
-    #         values_protractedspeciationprocess = psp
-    #         return values_protractedspeciationprocess
-    #     else:
-    #         print("Missing ProtractedSpeciationProcess in config file.")
-    #         sys.exit()
 
     def get_generate_sample_values(self):
         return self.get_specific_config_values('generate_sample')

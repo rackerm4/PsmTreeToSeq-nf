@@ -10,12 +10,12 @@ def write_data_to_txt(data_dict, headers):
     csv_columns = headers
     csv_file = 'used_parameters.txt'
     if os.path.isfile(csv_file):
-        with open(csv_file, 'a') as csvfile:
-            writer = csv.DictWriter(csvfile, lineterminator='\n', delimiter=' ', fieldnames=csv_columns)
+        with open(csv_file, 'a+') as csvfile:
+            writer = csv.DictWriter(csvfile, delimiter=' ', fieldnames=csv_columns)
             writer.writerow(data_dict)
     else:
-        with open(csv_file, 'a') as csvfile:
-            writer = csv.DictWriter(csvfile, lineterminator='\n', delimiter=' ', fieldnames=csv_columns)
+        with open(csv_file, 'a+') as csvfile:
+            writer = csv.DictWriter(csvfile, delimiter=' ', fieldnames=csv_columns)
             writer.writeheader()
             writer.writerow(data_dict)
 

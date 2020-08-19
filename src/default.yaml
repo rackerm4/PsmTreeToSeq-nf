@@ -13,7 +13,6 @@ generate_sample:
   is_retry_on_total_extinction:
   max_retries: 4
 
-
 seq-gen:
   # 1 => generating random number, False => False, None = None
   state_freqs: 1 # [0.4, 0.4, 0.1, 0.1]             # specify the equilibrium frequencies of the four nucleotides or twenty amino acids

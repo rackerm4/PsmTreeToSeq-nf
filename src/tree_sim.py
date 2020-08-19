@@ -84,18 +84,6 @@ def file_output(trees, args, tree_names):
     """Stores output files."""
     for i in range(len(trees)):
         try:
-            file_name = tree_names[i] + '_' + temp_file_name() + "." + str(args.schema)
-            # tmp_path = os.path.join(output_dir, file_name)
-            trees[i].write_to_path(file_name, suppress_edge_lengths=True,
-                                   schema=args.schema)
-            # yield file_name
-        except BaseException as e:
-            return "Unexpected error while saving tree data:\n" + str(e)
-
-def file_output(trees, args, tree_names):
-    """Stores output files."""
-    for i in range(len(trees)):
-        try:
             # if schema is not nexus, trees will be stored as newick and then converted to nexus
             if args.schema != 'nexus':
                 file_name = tree_names[i] + '_' + temp_file_name() + "." + str(args.schema)
@@ -103,7 +91,7 @@ def file_output(trees, args, tree_names):
                                        schema=args.schema)
                 convert_newick_to_nexus(file_name)
             else:
-                file_name = tree_names[i][:3]+ '_' + temp_file_name() + "." + str(args.schema)
+                file_name = tree_names[i][:3] + '_' + temp_file_name() + "." + str(args.schema)
                 trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
                                        schema=args.schema)
             for f in glob.glob("*.newick"):

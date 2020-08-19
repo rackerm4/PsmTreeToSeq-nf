@@ -7,11 +7,6 @@ import dendropy
 import loader as cl
 from dendropy.interop import seqgen
 
-"""
-    author: Robin Ackermann
-    version: -
-"""
-
 
 def main():
     parser = argparse.ArgumentParser(description='Generate sample tree data under the protracted speciation model')
