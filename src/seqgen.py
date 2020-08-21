@@ -27,10 +27,6 @@ def main():
         d1 = s.generate(trees)
         with open(filename, "w") as f:
             f.write(d1.char_matrices[0].as_string(schema))
-        # t = seqgen_vals['state_freqs']
-        # with open(filename + '_test.txt', "a") as f:
-        #     print(str(t), file=f)
-
         # todo:
         # lineage and ortho tree don't have same parameters.
 
