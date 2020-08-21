@@ -23,19 +23,20 @@ def main():
 
     def seqgen_to_file(args, config, file, schema):
         trees = dendropy.Tree.get(path=file, schema=schema)
-        seqgen_vals = config.get_seq_gen_values()
-        for k, v in seqgen_vals.items():
-            seqgen_vals[k] = seqgen.SeqGen(v)
-
         filename = "seq_{}.txt".format(file.split('.')[0])
         d1 = s.generate(trees)
         with open(filename, "w") as f:
             f.write(d1.char_matrices[0].as_string(schema))
+        # t = seqgen_vals['state_freqs']
+        # with open(filename + '_test.txt', "a") as f:
+        #     print(str(t), file=f)
 
-        # with open('test.txt', "a") as f:
-        #     f.write(str(config.generate_seq_gen_state_freqs()) + '\n')
         # todo:
         # lineage and ortho tree don't have same parameters.
+
+    seqgen_vals = config.get_seq_gen_values()
+    for k, v in seqgen_vals.items():
+        seqgen_vals[k] = seqgen.SeqGen(v)
 
     for file in args.trees:
         schema = file.split('.')[1]

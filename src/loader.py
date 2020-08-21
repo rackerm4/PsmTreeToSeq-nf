@@ -30,7 +30,7 @@ class Loader:
         rng_values = []
         n = 2  # number of digits after the decimal point
         for i in range(len(vital)):
-            rng_values.append(round(np.random.uniform(0, 0.4), n))
+            rng_values.append(round(np.random.uniform(0, 0.25), n))
         # test values below
         # return {'incipient_species_extinction_rate': 0.2, 'speciation_initiation_from_orthospecies_rate': 0.2, 'speciation_initiation_from_incipient_species_rate': 0.2, 'speciation_completion_rate': 0.2, 'orthospecies_extinction_rate': 0.2, 'aincipient_species_extinction_rate': 0.2}
         return dict(zip(vital, rng_values))
@@ -76,5 +76,5 @@ class Loader:
         return {**config, **random_args}
 
     def load_headers(self):
-        return list(self.cfg_load()['ProtractedSpeciationProcess']) + list(self.cfg_load()['generate_sample']) + list(
+        return ['id'] + list(self.cfg_load()['ProtractedSpeciationProcess']) + list(self.cfg_load()['generate_sample']) + list(
             self.cfg_load()['seq-gen'])

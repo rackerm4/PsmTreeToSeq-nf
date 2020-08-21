@@ -26,18 +26,21 @@ def main():
     config = cl.Loader(args.output)
     headers = config.load_headers()
 
-    # getting trees
-    get_trees = call_sample_tree(config)
-    # generating Sequences & saving trees
     try:
-        file_output(get_trees, args, ["lineage", "orthospecies"])
+        # getting trees
+        get_trees = call_sample_tree(config)
+        # generating Sequences & saving trees
+        file_name = file_output(get_trees, args, ["lineage", "orthospecies"])
     except:
         pass
     # saving parameters
-    parameters_to_txt(config, headers)
+    parameters_to_txt(config, headers, file_name)
+    # todo:
+    # file name should have have ids
+    # check if id vs used parameter runs, delete rest
 
 
-def temp_file_name():
+def rng_file_name():
     """
     Generates random string
     :return : random string
@@ -75,11 +78,7 @@ def call_sample_tree(config):
             return generated_trees
         except:
             continue
-        # except BaseException as e:
-        #     print("Maximum number of runs to execute in the event of prematurely-terminated simulations due to all "
-        #           "lineages going extinct. Once this number or re-runs is exceed, then TreeSimTotalExtinctionException "
-        #           "is raised. Defaults to 1000. Set to None to never quit trying.\n" + str(e))
-
+            # ignores error coming from ProtractedSpeciationProcess and keep going instead.
 
 def file_output(trees, args, tree_names):
     """Stores output files."""
@@ -87,16 +86,17 @@ def file_output(trees, args, tree_names):
         try:
             # if schema is not nexus, trees will be stored as newick and then converted to nexus
             if args.schema != 'nexus':
-                file_name = tree_names[i] + '_' + temp_file_name() + "." + str(args.schema)
+                file_name = tree_names[i] + '_' + rng_file_name() + "." + str(args.schema)
                 trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
                                        schema=args.schema)
                 convert_newick_to_nexus(file_name)
             else:
-                file_name = tree_names[i][:3] + '_' + temp_file_name() + "." + str(args.schema)
+                file_name = tree_names[i][:3] + '_' + rng_file_name() + "." + str(args.schema)
                 trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
                                        schema=args.schema)
             for f in glob.glob("*.newick"):
                 os.remove(f)
+            return file_name
         except BaseException as e:
             return "Unexpected error while saving tree data:\n" + str(e)
 
@@ -106,13 +106,14 @@ def convert_newick_to_nexus(fname):
     tree = dendropy.Tree.get(path=fname, schema='newick')
     new_file_name = fname.split('.')[0] + '.nexus'
     tree.write_to_path(new_file_name, suppress_rooting=True, suppress_edge_lengths=True,
-                                                 schema="nexus")
+                       schema="nexus")
     return new_file_name
 
 
-def parameters_to_txt(config, headers):
+def parameters_to_txt(config, headers, file_name):
     """Combines all parameters dicts to one dict and pass dict + headers to write_data_to_txt"""
-    z = {**config.get_generate_sample_values(), **config.generate_protracted_speciation_process_values(),
+    id_file = {'id': file_name.split('.')[0]}
+    z = {**id_file, **config.get_generate_sample_values(), **config.generate_protracted_speciation_process_values(),
          **config.get_seq_gen_values()}
     dtc.write_data_to_txt(z, headers)
 

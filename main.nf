@@ -9,13 +9,13 @@ TREE_SIM_DIR = params.output_dir + "generated_trees"
 SEQGEN_DIR = params.output_dir + "generated_seqs"
 output_dir = file(params.output_dir)
 
-
-log.info "P s m  T r e e  T o  S e q - N F  ~  version 0.1"
-log.info "====================================="
-log.info "generated_trees        : ${TREE_SIM_DIR}"
-log.info "generated_seqs         : ${SEQGEN_DIR}"
-log.info "Stay hydrated          : drink water"
-
+println """\
+         P s m  T r e e  T o  S e q - N F  ~  version 0.1
+         ===================================
+         Directory of generated trees        : ${TREE_SIM_DIR}
+         Directory of generated sequences    : ${SEQGEN_DIR}
+         """
+         .stripIndent()
 /*
     First Process: tree_sim.py generates n trees and stores them.
 */
