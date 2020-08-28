@@ -24,7 +24,8 @@ process tree_sim {
     input:
         each x from 1..params.nums.toInteger()
     output:
-        file '*' into ch_tree_sim_output
+        file '*.nexus' into ch_tree_sim_output
+        file '*.json' into ch_param_output
     script:
     """
     python3 ${output_dir}/src/tree_sim.py --schema ${params.schema} --config ${params.config} --output ${output_dir}
@@ -34,13 +35,29 @@ process tree_sim {
     Seq_gen process: uses simulated trees of process tree_sim and simulates sequences.
 */
 process seq_gen {
-    publishDir SEQGEN_DIR,mode: 'move'
+    publishDir SEQGEN_DIR,mode: 'copy'
     input:
         file tree from ch_tree_sim_output
     output:
         file '*' into ch_seqgen_output
+        file '*.json' into ch_seqgen_params
     script:
         """
-        python3 ${output_dir}/src/seqgen.py ${tree} --output_dir ${params.output_dir}
+        python3 ${output_dir}/src/seqgen.py --ts ${tree} --output_dir ${params.output_dir}
+        """
+}
+/*
+    Merge process: merges all parameter files to one file
+*/
+process merging {
+    publishDir TREE_SIM_DIR,mode: 'copy'
+    input:
+        file sq_params from ch_seqgen_params.collect()
+        file ts_params from ch_param_output.collect()
+    output:
+        file '*' into ch_merge_output
+    script:
+        """
+        python3 ${output_dir}/src/merge_params.py --s ${sq_params} --t ${ts_params} --output ${params.output_dir}
         """
 }

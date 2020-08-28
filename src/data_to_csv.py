@@ -6,16 +6,21 @@ import os
 """
 
 
-def write_data_to_txt(data_dict, headers):
+def write_params_to_txt(data_dict, headers):
     """Parameter to file writer."""
     csv_columns = headers
-    csv_file = 'used_parameters.txt'
+    # if val:
+    #     csv_file = "{}_tree_params.txt".format(data_dict['id'])
+    # else:
+    #     csv_file = "{}_seqgen_params.txt".format(data_dict['id'])
+    csv_file = "params.txt"
+
     if os.path.isfile(csv_file):
-        with open(csv_file, 'a+') as csvfile:
+        with open(csv_file, "a+") as csvfile:
             writer = csv.DictWriter(csvfile, lineterminator='\n', delimiter=' ', fieldnames=csv_columns)
             writer.writerow(data_dict)
     else:
-        with open(csv_file, 'a+') as csvfile:
+        with open(csv_file, "a+") as csvfile:
             writer = csv.DictWriter(csvfile, lineterminator='\n', delimiter=' ', fieldnames=csv_columns)
             writer.writeheader()
             writer.writerow(data_dict)

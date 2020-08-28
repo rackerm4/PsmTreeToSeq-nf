@@ -7,6 +7,7 @@ import glob
 import argparse
 import time
 import tempfile
+import json
 import data_to_csv as dtc
 import loader as cl
 
@@ -26,18 +27,23 @@ def main():
     config = cl.Loader(args.output)
     headers = config.load_headers()
 
+    # load run parameters
+    generated_sample_parameters = gen_sample_values(config.get_generate_sample_values())
+    generated_protracted_speciation_process_parameters = cl.Loader.generate_protracted_speciation_process_values()
+
     try:
         # getting trees
-        get_trees = call_sample_tree(config)
-        # generating Sequences & saving trees
-        file_name = file_output(get_trees, args, ["lineage", "orthospecies"])
+        get_trees = call_sample_tree(generated_sample_parameters, generated_protracted_speciation_process_parameters)
+        # generating Sequences & saving trees, creating file names
+        a = rng_file_name()
+        for i in range(len(get_trees)):
+            names = ["lineage", "orthospecies"]
+            file_name = names[i][:3] + '_' + a + "." + str(args.schema)
+            file_output(get_trees[i], args, file_name)
+            parameters_to_json(generated_sample_parameters, generated_protracted_speciation_process_parameters, headers,
+                              file_name)
     except:
         pass
-    # saving parameters
-    parameters_to_txt(config, headers, file_name)
-    # todo:
-    # file name should have have ids
-    # check if id vs used parameter runs, delete rest
 
 
 def rng_file_name():
@@ -58,10 +64,11 @@ def gen_sample_values(values):
     return {k: v for k, v in values.items() if v}
 
 
-def call_sample_tree(config):
+def call_sample_tree(generate_sample_parameters, generated_protracted_speciation_process_parameters):
     """
     Calls ProtractedSpeciationProcess and generates sample trees.
-    :param args, config:
+    :param generated_protracted_speciation_process_parameters:
+    :param generate_sample_parameters
     :return trees,
     generate_tree[0] lineage_tree (|Tree| instance) – A tree from the protracted speciation process, with all lineages
     (good species as well as incipient species).
@@ -70,35 +77,32 @@ def call_sample_tree(config):
     """
     while True:
         try:
-            # calling args
-            values = gen_sample_values(config.get_generate_sample_values())
+            # # calling args
+            # values = gen_sample_values(config.get_generate_sample_values())
             # generate trees
             generated_trees = protractedspeciation.ProtractedSpeciationProcess(
-                **cl.Loader.generate_protracted_speciation_process_values()).generate_sample(**values)
+                **generated_protracted_speciation_process_parameters).generate_sample(**generate_sample_parameters)
             return generated_trees
         except:
             continue
-            # ignores error coming from ProtractedSpeciationProcess and keep going instead.
+            # ignores error coming from ProtractedSpeciationProcess and keeps going instead.
 
-def file_output(trees, args, tree_names):
+
+def file_output(trees, args, file_name):
     """Stores output files."""
-    for i in range(len(trees)):
-        try:
-            # if schema is not nexus, trees will be stored as newick and then converted to nexus
-            if args.schema != 'nexus':
-                file_name = tree_names[i] + '_' + rng_file_name() + "." + str(args.schema)
-                trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
-                                       schema=args.schema)
-                convert_newick_to_nexus(file_name)
-            else:
-                file_name = tree_names[i][:3] + '_' + rng_file_name() + "." + str(args.schema)
-                trees[i].write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
-                                       schema=args.schema)
-            for f in glob.glob("*.newick"):
-                os.remove(f)
-            return file_name
-        except BaseException as e:
-            return "Unexpected error while saving tree data:\n" + str(e)
+    try:
+        # if schema is not nexus, trees will be stored as newick and then converted to nexus
+        if args.schema != 'nexus':
+            trees.write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
+                                schema=args.schema)
+            convert_newick_to_nexus(file_name)
+        else:
+            trees.write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
+                                schema=args.schema)
+        for f in glob.glob("*.newick"):
+            os.remove(f)
+    except BaseException as e:
+        return "Unexpected error while saving tree data:\n" + str(e)
 
 
 def convert_newick_to_nexus(fname):
@@ -110,12 +114,16 @@ def convert_newick_to_nexus(fname):
     return new_file_name
 
 
-def parameters_to_txt(config, headers, file_name):
+def parameters_to_json(generated_sample_parameters, generated_protracted_speciation_process_parameters, headers,
+                      file_name):
     """Combines all parameters dicts to one dict and pass dict + headers to write_data_to_txt"""
     id_file = {'id': file_name.split('.')[0]}
-    z = {**id_file, **config.get_generate_sample_values(), **config.generate_protracted_speciation_process_values(),
-         **config.get_seq_gen_values()}
-    dtc.write_data_to_txt(z, headers)
+    z = {**id_file, **generated_sample_parameters, **generated_protracted_speciation_process_parameters}
+    # dtc.write_params_to_txt(1, z, headers)
+
+    json_file = "{}_t_params.json".format(file_name.split('.')[0])
+    with open(json_file, "a+") as json_file:
+        json.dump(z, json_file)
 
 
 if __name__ == '__main__':

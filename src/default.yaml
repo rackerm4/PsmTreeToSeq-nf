@@ -37,10 +37,6 @@ seq-gen:
   # on: # Relaxed PHYLIP format: PHYLIP format expects exactly 10 characters for the name (padded with spaces if the name is actually less than 10). With this option the output file can have up to 256 characters in the name, followed by a single space before the sequence. The longer taxon names are read from the tree. Some programs can read this and it keeps long taxon names.
   # q:  # option prevents any output except the final trees and any error messages.
 
-  # todo:
-  # check if all arguments are correct with source of dendropy seqgen at
-  # https://github.com/jeetsukumaran/DendroPy/blob/main/src/dendropy/interop/seqgen.py
-
   # All values below are not supported by Dendropys interop Seq-Gen
   # op: # This option selects the format of the output file. The default is PHYLIP format.
   # or: # PHYLIP format.
