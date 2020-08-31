@@ -84,7 +84,6 @@ Source & for further information: https://www.nextflow.io/docs/latest/executor.h
 - possible error when Docker run in SGE. SGE should be used without Docker
 - Parameters not logged properly [Done]
 - Newick trees raise an error when read in with Seq-Gen. Currently every newick tree is converted into a nexus tree. All newick tree will be deleted.
-
 - When ProtractedSpeciationProcess class raises an error, most of the time it's that error below. 
 It will be ignored and the next run will start, but the parameters still get saved. [Done] runs process until return
 ```
