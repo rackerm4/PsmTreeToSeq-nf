@@ -53,7 +53,7 @@ Arg | Notes
 --schema/-s | Tree schema (newick, nexus..)
 --output/-o | Specify output directory
 --profile | Choose between different profile. Default: "standard", runs locally. 
---with-docker docker | runs processes in specific container
+--with-docker | runs processes in specific container
 
 ### :bulb: Sun Grid Engine
 
