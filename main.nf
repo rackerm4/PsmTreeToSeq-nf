@@ -19,7 +19,7 @@ println """\
 /*
     First Process: tree_sim.py generates n trees and stores them.
 */
-process tree_sim {
+process tree_simulations {
     publishDir TREE_SIM_DIR, mode: 'copy'
     input:
         each x from 1..params.nums.toInteger()
@@ -34,7 +34,7 @@ process tree_sim {
 /*
     Seq_gen process: uses simulated trees of process tree_sim and simulates sequences.
 */
-process seq_gen {
+process SeqGen_process {
     publishDir SEQGEN_DIR,mode: 'copy'
     input:
         file tree from ch_tree_sim_output
@@ -49,7 +49,7 @@ process seq_gen {
 /*
     Merge process: merges all parameter files to one file
 */
-process merging {
+process merging_process {
     publishDir TREE_SIM_DIR,mode: 'copy'
     input:
         file sq_params from ch_seqgen_params.collect()
