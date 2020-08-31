@@ -21,6 +21,7 @@ println """\
 */
 process tree_simulations {
     publishDir TREE_SIM_DIR, mode: 'copy'
+//  executor 'sge'
     input:
         each x from 1..params.nums.toInteger()
     output:
@@ -36,6 +37,7 @@ process tree_simulations {
 */
 process SeqGen_process {
     publishDir SEQGEN_DIR,mode: 'copy'
+//  executor 'sge'
     input:
         file tree from ch_tree_sim_output
     output:
@@ -51,6 +53,7 @@ process SeqGen_process {
 */
 process merging_process {
     publishDir TREE_SIM_DIR,mode: 'copy'
+//  executor 'sge'
     input:
         file sq_params from ch_seqgen_params.collect()
         file ts_params from ch_param_output.collect()
