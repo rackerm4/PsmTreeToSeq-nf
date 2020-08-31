@@ -52,7 +52,7 @@ Arg | Notes
 --num_runs/-n   | Enter number of trees & sequence files you want simulate
 --schema/-s | Tree schema (newick, nexus..)
 --output/-o | Specify output directory
---profile | Choose between different profile. Default: "standard", runs locally. 
+--profile | Choose between different profiles. Default: "standard", runs locally. 
 --with-docker | runs processes in specific container
 
 ### :bulb: Sun Grid Engine
