@@ -26,7 +26,7 @@ $ sudo apt-get install seq-gen
 
 Run via Nextflow:
 ```sh
-$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (--profile standard/cluster_sge/docker) (-with-docker docker Runs in specific container)
+$ nextflow run rackerm4/PsmTreeToSeq-nf --nums N --schema nexus --config default (--profile standard (default)/cluster_sge/docker) (-with-docker docker)
 ```
 
 Clone from GitHub:
