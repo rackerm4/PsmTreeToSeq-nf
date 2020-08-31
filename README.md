@@ -105,6 +105,27 @@ $ sudo chmod 666 /var/run/docker.sock
 
 ### How does it work
 
+- [`Nextflow/main.nf`](main.nf)
+Defines output directories and takes several arguments listed above. Runs the tree simulation "nums" times and forwards output into specific channel to SeqGen.py 
+Merges all parameters files to single "params.txt" file.
+Can be run in Docker container, with Docker images/containers or in Sun Grid Engine.
+
+- [`tree_sim.py`](tree_sim.py):
+Runs "nums" times. Reads in parameters from config file, or loads randomized parameters. Stores used parameters in json files "TREENAME_t_params.json". 
+If user used "newick" schema, all trees are converted to nexus. Returns 2 trees per run:
+    - lineage_tree – A tree from the protracted speciation process, with all lineages
+    (good species as well as incipient species).
+    - orthospecies_tree – A tree from the protracted speciation process with only
+    “good” species.
+    
+- [`seqgen.py`](seqgen.py)
+Takes two trees per run. Reads in parameters from config file, or loads randomized parameters. Stores used parameters in json files "SEQFILE_s_params.json". Returns 2 nexus files with sequences.
+
+- [`default.yaml`](default.yaml)
+Contains arguments for ProtractedSpeciationProcess, generate_sample & SeqGen.
+Parameters with "1" will be randomized. None = None, False = False
+
+
 ## :books: Resources
 - DendroPy - Phylogenetic Computing Library:
     - https://dendropy.org/
