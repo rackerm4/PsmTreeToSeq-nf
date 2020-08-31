@@ -110,7 +110,7 @@ Defines output directories and takes several arguments listed above. Runs the tr
 Merges all parameters files to single "params.txt" file.
 Can be run in Docker container, with Docker images/containers or in Sun Grid Engine.
 
-- [`tree_sim.py`](tree_sim.py):
+- [`tree_sim.py`](src/tree_sim.py):
 Runs "nums" times. Reads in parameters from config file, or loads randomized parameters. Stores used parameters in json files "TREENAME_t_params.json". 
 If user used "newick" schema, all trees are converted to nexus. Returns 2 trees per run:
     - lineage_tree – A tree from the protracted speciation process, with all lineages
@@ -118,10 +118,10 @@ If user used "newick" schema, all trees are converted to nexus. Returns 2 trees 
     - orthospecies_tree – A tree from the protracted speciation process with only
     “good” species.
     
-- [`seqgen.py`](seqgen.py)
+- [`seqgen.py`](src/seqgen.py)
 Takes two trees per run. Reads in parameters from config file, or loads randomized parameters. Stores used parameters in json files "SEQFILE_s_params.json". Returns 2 nexus files with sequences.
 
-- [`default.yaml`](default.yaml)
+- [`default.yaml`](src/default.yaml)
 Contains arguments for ProtractedSpeciationProcess, generate_sample & SeqGen.
 Parameters with "1" will be randomized. None = None, False = False
 
