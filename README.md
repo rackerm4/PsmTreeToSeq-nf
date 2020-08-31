@@ -44,7 +44,7 @@ $ nextflow run main.nf --nums N --schema nexus --config default (--profile stand
 * Seq-Gen
 * Nextflow
 
-### Arguments
+### :pencil2: Arguments
 
 Arg | Notes
 ------- | --------
@@ -72,7 +72,7 @@ The amount of resources requested by each job submission is defined by the follo
 Source & for further information: https://www.nextflow.io/docs/latest/executor.html#sge
 
 
-## :bulb: Work to be done
+## :construction: Work to be done
 - (Dockerfile/image/container)
 - Ignore parameters of failed runs -> see Known issues [Done]
 - Passing Seq-Gen parameter from default config [Done]
@@ -80,7 +80,7 @@ Source & for further information: https://www.nextflow.io/docs/latest/executor.h
 - several testing:
     - behavior with high tree counts & full size
     
-## Known issues
+## :warning: Known issues
 - possible error when Docker run in SGE. SGE should be used without Docker
 - Parameters not logged properly [Done]
 - Newick trees raise an error when read in with Seq-Gen. Currently every newick tree is converted into a nexus tree. All newick tree will be deleted.
