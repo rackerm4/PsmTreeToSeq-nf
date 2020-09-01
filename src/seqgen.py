@@ -21,7 +21,7 @@ def main():
     # get seqgen parameters
     get_seqgen_param = config.get_seq_gen_values()
     # write seqgen params to file
-    for i in range(2):
+    for i in range(len(args.ts)):
         id = args.ts[i].split('.')[0]
         seqgen_params_with_id = {'id': id, **get_seqgen_param}
         parameters_to_json(id, seqgen_params_with_id)
@@ -44,12 +44,12 @@ def seqgen_to_file(files, seqgen_vals):
         seqgen_vals[k] = seqgen.SeqGen(v)
     for file in files:
         schema = file.split('.')[1]
-        if ("lin" or "ort") in file:
-            trees = dendropy.Tree.get(path=file, schema=schema)
-            filename = "seq_{}".format(file.split('.')[0] + "." + schema)
-            d1 = s.generate(trees)
-            with open(filename, "w") as f:
-                f.write(d1.char_matrices[0].as_string(schema))
+        # if ("lin" or "ort") in file:
+        trees = dendropy.Tree.get(path=file, schema=schema)
+        filename = "seq_{}".format(file.split('.')[0] + "." + schema)
+        d1 = s.generate(trees)
+        with open(filename, "w") as f:
+            f.write(d1.char_matrices[0].as_string(schema))
 
 
 if __name__ == '__main__':
