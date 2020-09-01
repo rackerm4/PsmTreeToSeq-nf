@@ -37,7 +37,7 @@ process tree_simulations {
 */
 process SeqGen_process {
     publishDir SEQGEN_DIR, pattern: '*.nexus'
-//  executor 'sge' mode: 'copy',
+//  executor 'sge'
     input:
         file tree from ch_tree_sim_output
     output:
