@@ -92,6 +92,7 @@ def file_output(trees, args, file_name):
     """Stores output files."""
     try:
         # if schema is not nexus, trees will be stored as newick and then converted to nexus
+        # could be changed to forced "nexus" user input, so this function could be removed
         if args.schema != 'nexus':
             trees.write_to_path(file_name, suppress_rooting=True, suppress_edge_lengths=True,
                                 schema=args.schema)
