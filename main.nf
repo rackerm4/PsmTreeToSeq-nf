@@ -20,7 +20,7 @@ println """\
     First Process: tree_sim.py generates n trees and stores them.
 */
 process tree_simulations {
-    publishDir TREE_SIM_DIR, mode: 'copy'
+    publishDir TREE_SIM_DIR, pattern: '*.nexus'
 //  executor 'sge'
     input:
         each x from 1..params.nums.toInteger()
@@ -36,12 +36,12 @@ process tree_simulations {
     Seq_gen process: uses simulated trees of process tree_sim and simulates sequences.
 */
 process SeqGen_process {
-    publishDir SEQGEN_DIR,mode: 'copy'
-//  executor 'sge'
+    publishDir SEQGEN_DIR, pattern: '*.nexus'
+//  executor 'sge' mode: 'copy',
     input:
         file tree from ch_tree_sim_output
     output:
-        file '*' into ch_seqgen_output
+        file '*.nexus' into ch_seqgen_output
         file '*.json' into ch_seqgen_params
     script:
         """
