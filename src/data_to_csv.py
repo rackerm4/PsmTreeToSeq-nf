@@ -9,10 +9,6 @@ import os
 def write_params_to_txt(data_dict, headers):
     """Parameter to file writer."""
     csv_columns = headers
-    # if val:
-    #     csv_file = "{}_tree_params.txt".format(data_dict['id'])
-    # else:
-    #     csv_file = "{}_seqgen_params.txt".format(data_dict['id'])
     csv_file = "params.txt"
 
     if os.path.isfile(csv_file):

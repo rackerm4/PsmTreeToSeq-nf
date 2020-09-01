@@ -119,7 +119,6 @@ def parameters_to_json(generated_sample_parameters, generated_protracted_speciat
     """Combines all parameters dicts to one dict and pass dict + headers to write_data_to_txt"""
     id_file = {'id': file_name.split('.')[0]}
     z = {**id_file, **generated_sample_parameters, **generated_protracted_speciation_process_parameters}
-    # dtc.write_params_to_txt(1, z, headers)
 
     json_file = "{}_t_params.json".format(file_name.split('.')[0])
     with open(json_file, "a+") as json_file:

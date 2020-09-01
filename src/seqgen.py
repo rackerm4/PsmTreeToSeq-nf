@@ -16,7 +16,6 @@ def main():
     args.parser = parser
 
     config = cl.Loader(args.output_dir)
-    headers = config.load_headers()
 
     # get seqgen parameters
     get_seqgen_param = config.get_seq_gen_values()
@@ -25,8 +24,6 @@ def main():
         id = args.ts[i].split('.')[0]
         seqgen_params_with_id = {'id': id, **get_seqgen_param}
         parameters_to_json(id, seqgen_params_with_id)
-        # dtc.write_params_to_txt(0, seqgen_params_with_id, headers)
-        # js.write_params_to_json(seqgen_params_with_id)
     # generate seqs
     seqgen_to_file(args.ts, get_seqgen_param)
 
@@ -44,7 +41,6 @@ def seqgen_to_file(files, seqgen_vals):
         seqgen_vals[k] = seqgen.SeqGen(v)
     for file in files:
         schema = file.split('.')[1]
-        # if ("lin" or "ort") in file:
         trees = dendropy.Tree.get(path=file, schema=schema)
         filename = "seq_{}".format(file.split('.')[0] + "." + schema)
         d1 = s.generate(trees)

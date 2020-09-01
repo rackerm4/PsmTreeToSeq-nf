@@ -16,7 +16,6 @@ def main():
 
     config = cl.Loader(args.output)
     headers = config.load_headers()
-    data = {}
 
     for i in args.s:
         file = i[:-14] + '_t_params.json'
