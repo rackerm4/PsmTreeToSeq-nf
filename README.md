@@ -6,8 +6,6 @@ Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to s
 
 Status: Working. Testing...
 
-## :thought_balloon: Background
-
 
 ### Installation & Docker
 Install as Module:
