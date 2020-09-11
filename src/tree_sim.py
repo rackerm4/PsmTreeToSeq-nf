@@ -28,8 +28,8 @@ def main():
     headers = config.load_headers()
 
     # load run parameters
-    generated_sample_parameters = gen_sample_values(config.get_generate_sample_values())
-    generated_protracted_speciation_process_parameters = cl.Loader.generate_protracted_speciation_process_values()
+    generated_sample_parameters = config.get_generate_sample_values()
+    generated_protracted_speciation_process_parameters = config.generate_protracted_speciation_process_values()
 
     try:
         # getting trees
@@ -53,15 +53,6 @@ def rng_file_name():
     """
     temp_name = next(tempfile._get_candidate_names())
     return temp_name
-
-
-def gen_sample_values(values):
-    """
-    Returns variables for psp_ini.generate_sample in call_sample_tree function. Joins args to dict and filters empty args
-    :param :
-    :return : args with parameters only
-    """
-    return {k: v for k, v in values.items() if v}
 
 
 def call_sample_tree(generate_sample_parameters, generated_protracted_speciation_process_parameters):
