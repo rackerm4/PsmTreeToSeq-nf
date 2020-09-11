@@ -4,7 +4,7 @@ Pipeline using Nextflow, DendroPy & Seq-Gen.
 
 Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to simulate the evolution of nucleotide sequences along those phylogenies.
 
-Status: Working. Testing...
+Status: Currently not working. Errors while parsing parameters. Check "Work to be done"
 
 
 ### Installation & Docker
@@ -71,6 +71,7 @@ Source & for further information: https://www.nextflow.io/docs/latest/executor.h
 
 
 ## :construction: Work to be done
+- Parsing ProtractedSpeciationProcess parameters from config file not working correctly.
 - (Dockerfile/image/container)
 - Ignore parameters of failed runs -> see Known issues [Done]
 - Passing Seq-Gen parameter from default config [Done]
