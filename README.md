@@ -4,7 +4,7 @@ Pipeline using Nextflow, DendroPy & Seq-Gen.
 
 Simulates pyhlogentic trees with protracted speciation model, using Seq-Gen to simulate the evolution of nucleotide sequences along those phylogenies.
 
-Status: Currently not working. Errors while parsing parameters. Check "Work to be done"
+Status: Currently working. Testing: Errors while parsing parameters. Check "Work to be done"
 
 
 ### Installation & Docker
