@@ -66,7 +66,7 @@ Source & for further information: https://www.nextflow.io/docs/latest/executor.h
 
 
 ## :construction: Work to be done
-- Parsing ProtractedSpeciationProcess parameters from config file not working correctly.
+- Parsing ProtractedSpeciationProcess parameters from config file not working correctly. [Should be fixed]
 - (Dockerfile/image/container)
 - Ignore parameters of failed runs -> see Known issues [Done]
 - Passing Seq-Gen parameter from default config [Done]
